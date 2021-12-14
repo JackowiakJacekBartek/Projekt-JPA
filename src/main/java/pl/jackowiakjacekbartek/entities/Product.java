@@ -22,32 +22,21 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column
-    private String productId;
-
-    @Column
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column
-    @Max(value = 6)
+    @Column(nullable = false)
     private BigDecimal price;
-
-    @Column(length = 1000)
-    private DateTime bestBeforeDate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<Seller> sellers = new HashSet<>();
 
     //required by Hibernate
-    public Product(){
+    public Product(){ }
 
-    }
-
-    public Product(String productId, String name, BigDecimal price, DateTime date) {
-        this.productId = productId;
+    public Product(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
-        this.bestBeforeDate = date;
     }
 
     public String getName() {
@@ -62,17 +51,7 @@ public class Product {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
+    public void setId(Integer id) { this.id = id; }
 
     public BigDecimal getPrice() {
         return price;
@@ -80,14 +59,6 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public DateTime getBestBeforeDate() {
-        return bestBeforeDate;
-    }
-
-    public void setBestBeforeDate(DateTime bestBeforeDate) {
-        this.bestBeforeDate = bestBeforeDate;
     }
 
     public Set<Seller> getSellers() {

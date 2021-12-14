@@ -2,6 +2,7 @@ package pl.jackowiakjacekbartek.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,37 +19,21 @@ public class Seller {
     @Column(name = "id")
     private int id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String city;
 
-    @ElementCollection
-    @CollectionTable(name = "products")
-    @Column(name = "product_id")
-    private List<String> products = new ArrayList<>();
-
     @ManyToMany(fetch = FetchType.LAZY, mappedBy="sellers")
-    private List<Product> productsOb;
-
-    public List<Product> getProductsOb() {
-        return productsOb;
-    }
-
-    public void setProductsOb(List<Product> productsOb) {
-        this.productsOb = productsOb;
-    }
+    private List<Product> products;
 
     //required by Hibernate
-    public Seller(){
+    public Seller(){ }
 
-    }
-
-    public Seller(String name, String city, List<String> products) {
+    public Seller(String name, String city) {
         this.name = name;
         this.city = city;
-        this.products = products;
     }
 
     public int getId() {
@@ -73,13 +58,5 @@ public class Seller {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public List<String> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<String> products) {
-        this.products = products;
     }
 }

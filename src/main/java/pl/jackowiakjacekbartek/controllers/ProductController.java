@@ -68,11 +68,10 @@ public class ProductController {
     @PostMapping(value = "/product")
     public ResponseEntity<Product> create(@RequestBody @NonNull @Valid
                                                       Product product) {
-        product.setProductId(UUID.randomUUID().toString());
+
         productService.saveProduct(product);
         return ResponseEntity.ok().body(product);
     }
-
 
     /**
      * Edit product in database.

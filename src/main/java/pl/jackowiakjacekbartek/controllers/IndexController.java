@@ -27,20 +27,16 @@ public class IndexController {
         return "index";
     }
 
-
     @PostMapping(value = "generateModel", produces = MediaType.TEXT_PLAIN_VALUE)
     public String generateModel() {
 
-        DateTime dateAndTime  = DateTime.now();
+        Product p0 = new Product("GTA", new BigDecimal(200));
+        Product p1 = new Product("Witcher 3", new BigDecimal(160));
+        Product p2 = new Product("Fifa 21", new BigDecimal(200));
+        Product p3 = new Product("PES 21", new BigDecimal(200));
 
-        Product p0 = new Product(UUID.randomUUID().toString(),"Chleb", new BigDecimal(3.50), dateAndTime.plusDays(7));
-        Product p1 = new Product(UUID.randomUUID().toString(),"Jajko", new BigDecimal(2.50), dateAndTime.plusDays(7));
-        Product p2 = new Product(UUID.randomUUID().toString(),"Masło", new BigDecimal(3.50), dateAndTime.plusDays(7));
-        Product p3 = new Product(UUID.randomUUID().toString(),"Mąka", new BigDecimal(1.50), dateAndTime.plusDays(7));
-
-
-        Seller seller = new Seller("Biedra", "Poznan", Arrays.asList(p1.getProductId(), p2.getProductId(), p3.getProductId()));
-        Seller seller2 = new Seller("Lidl", "Krosno", Arrays.asList(p1.getProductId(), p2.getProductId()));
+        Seller seller = new Seller("EA", "Redwood City");
+        Seller seller2 = new Seller("Ubisoft", "Montreuilo");
 
         p1.getSellers().add(seller);
         p2.getSellers().add(seller);
