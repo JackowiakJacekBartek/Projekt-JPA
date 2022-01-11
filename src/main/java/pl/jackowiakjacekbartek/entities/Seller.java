@@ -2,28 +2,24 @@ package pl.jackowiakjacekbartek.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class,
-        property="refSelId", scope=Seller.class)
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, scope= Seller.class)
+@Table(name = "Sellers")
 public class Seller {
 
     @Id
-    @GeneratedValue(generator = "gen")
-    @SequenceGenerator(name = "gen", sequenceName = "seller_seq")
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
-    private String city;
+    private String place;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy="sellers")
     private List<Product> products;
@@ -31,9 +27,9 @@ public class Seller {
     //required by Hibernate
     public Seller(){ }
 
-    public Seller(String name, String city) {
+    public Seller(String name, String place) {
         this.name = name;
-        this.city = city;
+        this.place = place;
     }
 
     public int getId() {
@@ -52,11 +48,11 @@ public class Seller {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public String getplace() {
+        return place;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setplace(String place) {
+        this.place = place;
     }
 }

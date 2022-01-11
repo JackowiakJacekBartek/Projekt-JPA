@@ -2,10 +2,8 @@ package pl.jackowiakjacekbartek.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,12 +12,12 @@ import java.util.Set;
  * Product entity.
  */
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,
-        property="refId", scope=Product.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, scope= Product.class)
+@Table(name = "Products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)

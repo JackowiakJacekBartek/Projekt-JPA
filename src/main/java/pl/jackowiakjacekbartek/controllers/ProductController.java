@@ -13,7 +13,6 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Product controller.
@@ -67,7 +66,7 @@ public class ProductController {
      */
     @PostMapping(value = "/product")
     public ResponseEntity<Product> create(@RequestBody @NonNull @Valid
-                                                      Product product) {
+                                                  Product product) {
 
         productService.saveProduct(product);
         return ResponseEntity.ok().body(product);
@@ -104,7 +103,7 @@ public class ProductController {
 
 
     @GetMapping(value = "/products/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Product> list(@PathVariable("page") Integer pageNr,@RequestParam("size") Optional<Integer> howManyOnPage) {
+    public Iterable<Product> list(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> howManyOnPage) {
         return productService.listAllProductsPaging(pageNr, howManyOnPage.orElse(2));
     }
 }
