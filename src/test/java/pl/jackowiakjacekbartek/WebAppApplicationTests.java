@@ -37,8 +37,10 @@ public class WebAppApplicationTests {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].name").value("Forza"));
+        deleteProducts();
     }
     private void createProduct(String name, BigDecimal price) { repository.save(new Product(name, price)); }
+    private void deleteProducts() { repository.deleteAll(); }
 
     @Test
     public void indexTest() throws Exception {
