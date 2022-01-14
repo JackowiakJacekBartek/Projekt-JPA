@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-/**
- * Product service implement.
- */
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -49,6 +46,4 @@ public class ProductServiceImpl implements ProductService {
     public Iterable<Product> listAllProductsPaging(Integer pageNr, Integer howManyOnPage) {
         return productRepository.findAll(PageRequest.of(pageNr,howManyOnPage));
     }
-
-
 }

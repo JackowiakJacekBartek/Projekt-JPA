@@ -8,9 +8,6 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Product entity.
- */
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, scope= Product.class)
 @Table(name = "Products")
@@ -27,9 +24,8 @@ public class Product {
     private BigDecimal price;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Set<Seller> sellers = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
-    //required by Hibernate
     public Product(){ }
 
     public Product(String name, BigDecimal price) {
@@ -59,11 +55,11 @@ public class Product {
         this.price = price;
     }
 
-    public Set<Seller> getSellers() {
-        return sellers;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setSellers(Set<Seller> sellers) {
-        this.sellers = sellers;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

@@ -1,7 +1,8 @@
 package pl.jackowiakjacekbartek.controllers;
 
+import com.google.gson.Gson;
 import pl.jackowiakjacekbartek.entities.Product;
-import pl.jackowiakjacekbartek.entities.Seller;
+import pl.jackowiakjacekbartek.entities.User;
 import pl.jackowiakjacekbartek.services.ProductService;
 import pl.jackowiakjacekbartek.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
-/**
- * Homepage controller.
- */
 @RestController
 @RequestMapping("/")
 public class IndexController {
@@ -21,7 +20,7 @@ public class IndexController {
     private ProductService productService;
 
     @Autowired
-    private SellerService sellerService;
+    private UserService userService;
 
     @GetMapping(value = "")
     String index() {
@@ -46,27 +45,33 @@ public class IndexController {
         return "Products Generated";
     }
 
-    @PostMapping(value = "generateSellers", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String generateSellers() {
+    @PostMapping(value = "generateUsers", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String generateBuyers() {
 
-        Seller s0 = new Seller("EA", "Redwood City");
-        Seller s1 = new Seller("Rockstar", "New York");
-        Seller s2 = new Seller("CD Project", "Warsaw");
+        User s0 = new User("adrian123", "Redwood City", 15);
+        User s1 = new User("stasiek333", "New York", 16);
+        User s2 = new User("jacek12", "Warsaw", 32);
 
-        sellerService.saveSeller(s0);
-        sellerService.saveSeller(s1);
-        sellerService.saveSeller(s2);
+        userService.saveUser(s0);
+        userService.saveUser(s1);
+        userService.saveUser(s2);
 
-        return "Sellers Generated";
+        return "Users Generated";
     }
 
     @PostMapping(value = "generateSales", produces = MediaType.TEXT_PLAIN_VALUE)
     public String generateSales() {
 
+        //Jak zrobić tak żeby obiekt pobrać z bazy danych? tz, że tworze Userów w generateUsers, Products w generateProducts
+        // a w generateSales chce pobrać usera i product zamiast tworzyć nowych
+
         Product p0 = new Product("Rocket League", new BigDecimal(99));
-        Seller s0 = new Seller("Psyonix", "Raleigh");
-        p0.getSellers().add(s0);
+        Product p1 = new Product("Resident Evil 2", new BigDecimal(199));
+        User s0 = new User("bartek35355", "Poznan", 17);
+        p0.getUsers().add(s0);
+        p1.getUsers().add(s0);
         productService.saveProduct(p0);
+        productService.saveProduct(p1);
 
         return "Sales Generated";
     }
