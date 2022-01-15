@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, scope= User.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, scope= User.class)
 @Table(name = "Users")
 public class User {
 

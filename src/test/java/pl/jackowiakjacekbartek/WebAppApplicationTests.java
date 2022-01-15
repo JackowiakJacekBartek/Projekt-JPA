@@ -1,6 +1,7 @@
 package pl.jackowiakjacekbartek;
 
 import pl.jackowiakjacekbartek.entities.Product;
+import pl.jackowiakjacekbartek.entities.User;
 import pl.jackowiakjacekbartek.repositories.ProductRepository;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -12,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.jackowiakjacekbartek.repositories.UserRepository;
+
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -26,7 +29,9 @@ public class WebAppApplicationTests {
     @Autowired
     private MockMvc mvc;
     @Autowired
-    private ProductRepository repository;
+    private ProductRepository productRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     public void productTest() throws Exception {
@@ -37,10 +42,24 @@ public class WebAppApplicationTests {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].name").value("Forza"));
-        deleteProducts();
+        deleteProduct();
     }
-    private void createProduct(String name, BigDecimal price) { repository.save(new Product(name, price)); }
-    private void deleteProducts() { repository.deleteAll(); }
+    private void createProduct(String name, BigDecimal price) { productRepository.save(new Product(name, price)); }
+    private void deleteProduct() { productRepository.deleteAll(); }
+
+    @Test
+    public void userTest() throws Exception {
+        createUser("Duda123", "Warszawa", 52);
+        mvc.perform(get("/api/users")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].id").value("1"));
+        deleteUser();
+    }
+    private void createUser(String username, String place, int age) { userRepository.save(new User(username, place, age)); }
+    private void deleteUser() { userRepository.deleteAll(); }
 
     @Test
     public void indexTest() throws Exception {

@@ -16,9 +16,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Iterable<User> listAllUsers() {
-        return userRepository.findAll();
-    }
+    public Iterable<User> listAllUsers() { return userRepository.listAllUsers(); }
 
     @Override
     public Optional<User> getUserById(Integer id) {
@@ -31,9 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    public List<User> getByUsername(String username) { return userRepository.findByUsername(username); }
 
     @Override
     public int getProductsById(int id) {
