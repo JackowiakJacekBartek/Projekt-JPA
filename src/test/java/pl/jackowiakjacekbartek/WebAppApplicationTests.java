@@ -42,7 +42,7 @@ public class WebAppApplicationTests {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].name").value("Forza"));
-        deleteProduct();
+        //deleteProduct();
     }
     private void createProduct(String name, BigDecimal price) { productRepository.save(new Product(name, price)); }
     private void deleteProduct() { productRepository.deleteAll(); }
@@ -56,7 +56,7 @@ public class WebAppApplicationTests {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value("1"));
-        deleteUser();
+        //deleteUser();
     }
     private void createUser(String username, String place, int age) { userRepository.save(new User(username, place, age)); }
     private void deleteUser() { userRepository.deleteAll(); }

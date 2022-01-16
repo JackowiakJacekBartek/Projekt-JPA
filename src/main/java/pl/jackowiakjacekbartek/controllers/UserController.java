@@ -41,7 +41,9 @@ public class UserController {
     @GetMapping(value = "/findbyagegreaterthan/{age}")
     public List<User> getUsersAgeGreaterThan (@PathVariable int age) {
         List<User> fu3 = userService.getUsersAgeGreaterThan(age);
-        fu3.forEach(System.out::println);   //Dlaczego się wyświetla nazwa obiektu?
+        //fu3.get(0).getAge();
+        //czy mozna sie dostac tu do obiektu
+        fu3.forEach(System.out::println);
 
         return userService.getUsersAgeGreaterThan(age);
     }

@@ -16,8 +16,4 @@ public interface UserRepository extends CrudRepository<User, Integer>, PagingAnd
 
     @Query("select count(*) from User s join s.products p where s.id = ?1")
     int countProductsById(int id);
-
-    //Czemu zwraca mi REST tylko id? bez username, place, age. Rest products dobrze zwraca. Userów - nie. return userRepository.findAll(); sprawdzałem - nie działało. z @Query("SELECT u FROM User u") też zwraca tyko id
-    @Query("SELECT u FROM User u")
-    List<User> listAllUsers();
 }
